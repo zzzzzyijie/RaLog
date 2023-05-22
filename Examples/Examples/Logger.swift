@@ -18,9 +18,9 @@ public extension Printable {
 
     @inline(__always) @discardableResult
     static func note(
-        _ kLog: Any?, module: String? = nil, file: String = #file, function: String = #function, line: Int = #line
+        _ kLog: Any?, module: String? = nil, file: String = #file, function: String = #function, line: Int = #line, isDebug: Bool = false
     ) -> Log {
-        return p(kLog, module: module, file: file, function: function, line: line)(.note)
+        return p(kLog, module: module, file: file, function: function, line: line, isDebug: isDebug)(.note)
     }
 }
 

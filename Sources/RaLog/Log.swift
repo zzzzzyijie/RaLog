@@ -16,12 +16,13 @@ open class Log: LogModelProtocol, Printable, Storable, Filterable {
     public typealias Flag = String
     public typealias Module = String
     
-    public init(_ log: Any?, file: String, function: String, line: Int, flag: Flag, module: Module? = nil, identifier: String? = nil) {
+    public init(_ log: Any?, file: String, function: String, line: Int, flag: Flag, module: Module? = nil, identifier: String? = nil, isDebug: Bool = false) {
         self.log = log
         self.function = function
         self.line = line
         self.flag = flag
         self.identifier = identifier
+        self.isDebug = isDebug
         
         self.safeLog = "\(log ?? "nil")"
         self.formatTime = Log.formatter.string(from: Date(timeIntervalSince1970: timestamp))
@@ -47,6 +48,9 @@ open class Log: LogModelProtocol, Printable, Storable, Filterable {
             self.module = module ?? Self.appName ?? "RaLog"
         }
     }
+    
+    /// isDebug or not , only true will print and store ( default is no
+    open var isDebug: Bool
     
     /// The raw data object to be printed by the user.
     open var log: Any?
@@ -124,6 +128,7 @@ private extension Log {
         case formatTime
         case logedStr
         case identifier
+        case isDebug
     }
 }
 

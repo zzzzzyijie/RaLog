@@ -30,7 +30,7 @@ extension ViewController {
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
         
-        Log.debug("Note the output of the console")
+        Log.debug("Note the output of the console",isDebug: true)
     }
     
     open override func viewWillAppear(_ animated: Bool) {

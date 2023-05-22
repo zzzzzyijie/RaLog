@@ -52,21 +52,20 @@ public extension Printable {
     
     @inline(__always) @discardableResult
     static func print<T: LogModelProtocol>(_ log: T) -> T {
-        #if DEBUG
-        // 1. store format log
-        log.logedStr = self.format(log)
-        
-        // 2. filter
-        if let filterable = self as? Filterable.Type, _slowPath(filterable.filter(log)) { /* do nothing */ } else {
-            Swift.print(log.logedStr)
+        if log.isDebug {
+            // 1. store format log
+            log.logedStr = self.format(log)
+            
+            // 2. filter
+            if let filterable = self as? Filterable.Type, _slowPath(filterable.filter(log)) { /* do nothing */ } else {
+                Swift.print(log.logedStr)
+            }
+            
+            // 3. store
+            if let storable = self as? Storable.Type {
+                storable.store(log)
+            }
         }
-        
-        // 3. store
-        if let storable = self as? Storable.Type {
-            storable.store(log)
-        }
-        #endif
-        
         // 4. return
         return log
     }

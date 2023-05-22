@@ -12,6 +12,10 @@ import Foundation
 ///
 /// Used to restrict the data fields that a log data type must contain.
 public protocol LogModelProtocol: AnyObject, Codable {
+    
+    /// isDebug or not , only true will print and store ( default is no
+    var isDebug: Bool { get set }
+    
     /// The raw data object to be printed by the user.
     var log: Any? { get set }
     
